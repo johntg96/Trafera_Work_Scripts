@@ -1,4 +1,5 @@
 import sys
+import re
 import pyperclip
 
 print('|||||--Trafera Work Scripts--|||||')
@@ -18,7 +19,7 @@ def scan():
     if raw_sro == '~':
         sys.exit()
     else:
-        legit_sro = raw_sro.replace('R', 'S').replace('r', 'S').replace('P', 'R').replace('p', 'R').replace('Y', 'O').replace('y', 'O')
+        legit_sro = raw_sro.replace('R', 'S').replace('r', 'S').replace('P', 'R').replace('p', 'R').replace('Y', 'O').replace('y', 'O').replace('	','')
         pyperclip.copy(legit_sro)
         print('\n"' + pyperclip.paste() + '" copied to clipboard!')
         scan()
