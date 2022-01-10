@@ -1,0 +1,29 @@
+# TO DO:
+# Implement a rolling timer/time-based tracking behavior(s)
+# Learn about Python dictionaries and implement them so that the time of the SRO scan is tied to the SRO.
+# Implement a 'logoff' or 'quit timer' function (possibly set to break times by default) to get an accurate measurment of time between scanned SRO's.
+# Save this information locally on the machine as a file. Bonus points for also uploading to a cloud service for redundancy.
+# Create a function that will combine previous days file(s) with the current day file.
+# This function will log all scanned SRO's and create a history.
+# This history could be months long.
+# Use this data (SRO and time of completion between SRO's) to carefully calulate averages such as:
+# Number of units done per hour
+# Number of units done per day
+# Number of units done per week
+# Number of units done per month
+# Lots of fun possibilities. Using my average effort I can set that as a baseline to calculate pay-per-effort and other corruption-busting justice.
+# Eventually find the "sweet spot" comparing PFP payouts to this data to find the best "pace" at which comfort-level meets financial gain (is working harder really worth it? If so, how hard?)
+# Create a function to create visual representations/charts of this data.
+
+# AUTOMATION ideas:
+# Another script to be used that accesses a file holding all common diagnosis notes.
+# "Hotwire" (so-to-speak) say, short-hand input to diagnosis. Automatically copy diagnosis to clipboard.
+# ex: "l" == "Cracked LCD"
+#     "la" == "Cracked LCD assembly"
+#     "lc" == "Damaged LCD cable"
+# Certain character combos, like "lc", can trigger logic to ask more specifically about what is wrong with it (LCD cable in this case), to get a more specific part diagnosis.
+# ex: Damaged LCD cable, is it:
+# 1: cut
+# 2: frayed
+# 3: corroded
+# Then user input will pull more specific diagnosis from dictionary/file to clipboard.
