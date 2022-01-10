@@ -36,6 +36,7 @@ def menu():
         scan()
     elif choice == 2:
         print(dailyStats())
+        menu()
     elif choice == 3:
         sys.exit(0)
     else:
