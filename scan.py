@@ -27,20 +27,20 @@ def split(word):
 def dailyStats():
     print(sro_list)
     num_units = len(sro_list)
-    return "Total # of SRO's scanned: " + str(num_units)
+    return "Total # of unique SRO's scanned: " + str(num_units)
 
 def menu():
-    choice = int(input('\n1: Scan SRO\n2: Daily Stats\n3: Exit\n\n'))
+    choice = input('\n1: Scan SRO\n2: Daily Stats\n3: Exit\n\n')
 
-    if choice == 1:
+    if choice == "1":
         scan()
-    elif choice == 2:
+    elif choice == "2":
         print(dailyStats())
         menu()
-    elif choice == 3:
+    elif choice == "3":
         sys.exit(0)
     else:
-        print('Invalid choice')
+        print("Invalid choice")
         menu()
 
 def scan():
@@ -52,10 +52,12 @@ def scan():
     #check if SRO has been scanned in using Colemak-Mod DH layout or not
     if raw_sro_list[0]+raw_sro_list[1]+raw_sro_list[2] == "RPY":
         mod_sro = raw_sro.replace('R', 'S').replace('P', 'R').replace('Y', 'O').replace('	','')
-        sro_list.append(mod_sro)
+        if mod_sro not in sro_list:
+            sro_list.append(mod_sro)
         pyperclip.copy(mod_sro)
     elif raw_sro_list[0]+raw_sro_list[1]+raw_sro_list[2] == "SRO":
-        sro_list.append(raw_sro)
+        if raw_sro not in sro_list:
+            sro_list.append(raw_sro)
         pyperclip.copy(raw_sro)
     elif raw_sro == 'menu':
         menu()
