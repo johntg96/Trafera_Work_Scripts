@@ -76,10 +76,10 @@ def scan(stat_mode):
                 sro_list.append(mod_sro)
                 pyperclip.copy(mod_sro)
                 print("\n" + pyperclip.paste() + " copied to clipboard")
-            elif raw_sro in sro_list and stat_mode == "stat_mode_DELETE":
+            elif mod_sro in sro_list and stat_mode == "stat_mode_DELETE":
                 sro_list.remove(mod_sro)
                 print(mod_sro + " deleted from daily list\n")
-            elif raw_sro not in sro_list and stat_mode == "stat_mode_DELETE":
+            elif mod_sro not in sro_list and stat_mode == "stat_mode_DELETE":
                 print(mod_sro + " is not in daily SRO list\n")
             else:
                 pyperclip.copy(mod_sro)
@@ -117,7 +117,6 @@ def scan(stat_mode):
     else:
         print("SRO not detected, try again.")
         scan(stat_mode)
-
     
     scan(stat_mode)
 
