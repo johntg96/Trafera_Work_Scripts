@@ -75,15 +75,15 @@ def scan(stat_mode):
             if mod_sro not in sro_list and stat_mode == "stat_mode_ON":
                 sro_list.append(mod_sro)
                 pyperclip.copy(mod_sro)
-                print("\n" + pyperclip.paste() + " copied to clipboard")
+                print(f"\n{pyperclip.paste()} copied to clipboard")
             elif mod_sro in sro_list and stat_mode == "stat_mode_DELETE":
                 sro_list.remove(mod_sro)
                 print(mod_sro + " deleted from daily list\n")
             elif mod_sro not in sro_list and stat_mode == "stat_mode_DELETE":
-                print(mod_sro + " is not in daily SRO list\n")
+                print(f"{mod_sro} is not in daily SRO list\n")
             else:
                 pyperclip.copy(mod_sro)
-                print("\n" + pyperclip.paste() + " copied to clipboard but not added to daily list\n")
+                print(f"\n{pyperclip.paste()} copied to clipboard but not added to daily list\n")
     elif raw_sro_list[0]+raw_sro_list[1]+raw_sro_list[2] == "SRO":
         if len(raw_sro_list) < 10:
             print("\nIncomplete SRO scanned. Please scan again.\n")
@@ -91,15 +91,15 @@ def scan(stat_mode):
             if raw_sro not in sro_list and stat_mode == "stat_mode_ON":
                 sro_list.append(raw_sro)
                 pyperclip.copy(raw_sro)
-                print("\n" + pyperclip.paste() + " copied to clipboard")
+                print(f"\n{pyperclip.paste()} copied to clipboard")
             elif raw_sro in sro_list and stat_mode == "stat_mode_DELETE":
                 sro_list.remove(raw_sro)
-                print(raw_sro + " deleted from daily list\n")
+                print(f"{raw_sro} deleted from daily list\n")
             elif raw_sro not in sro_list and stat_mode == "stat_mode_DELETE":
-                print(raw_sro + " is not in daily SRO list\n")
+                print(f"{raw_sro} is not in daily SRO list\n")
             else:
                 pyperclip.copy(raw_sro)
-                print("\n" + pyperclip.paste() + " copied to clipboard but not added to daily list\n")
+                print(f"\n{pyperclip.paste()} copied to clipboard but not added to daily list\n")
     elif raw_sro == "MENU":
         menu()
     elif raw_sro == "STATS":
