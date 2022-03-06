@@ -1,6 +1,6 @@
 import sys
 import re
-import time
+import datetime
 import pyperclip
 
 print('''
@@ -20,14 +20,56 @@ print('''
 ''')
 
 sro_list = []
+sro_dict = {}
 
 def split(word):
     return [char for char in word]
 
+def calcAvg(timeframe):
+    #appends each hour of the day to this list as they are worked.
+    hours = []
+
+    for hour in sro_dict:
+        if hour[:2] not in hours:
+            hours.append(hour[:2])
+
+    if timeframe == "hour":
+        hourly_avg = len(sro_dict.values()) / len(hours)
+        return "Hours worked: " + str(len(hours)) + "\nHourly average: " + str(int(hourly_avg))
+
+    elif timeframe == "morning":
+        if '07' in hours and '12' in hours:
+            morning_sros = []
+
+            for sro in sro_dict.values():
+                morning_sros.append(sro)
+
+            morning_avg = len(sro_dict.values()) / 4.5
+            morning_total = len(morning_sros)
+            return "Morning average: " + str(int(morning_avg)) + " Morning total: " + str(morning_total)
+        else:
+            return "Morning hours not yet worked."
+    elif timeframe == 'afternoon':
+        if '12' in hours and '03' in hours:
+            afternoon_sros = []
+
+            for sro in sro_dict.values():
+                afternoon_sros.append(sro)
+
+            afternoon_avg = len(sro_dict.values()) / 3
+            afternoon_total = len(afternoon_sros)
+            return "Afternoon average: " + str(int(afternoon_avg)) + " Afternoon total: " + str(afternoon_total)
+        else:
+            return "Afternoon hours not yet worked."
+    elif timeframe == "day":
+        if '07' in hours and '03' in hours:
+            day_avg = len(sro_dict.values()) / 7
+            return "Day average " + str(int(day_avg))
+        else:
+            return "Full day not yet worked"
+
 def dailyStats():
-    print(sro_list)
-    num_units = len(sro_list)
-    return "Total # of unique SRO's scanned: " + str(num_units)
+    return "Total # of unique SRO's scanned: " + str(len(sro_dict.values())) + "\n" + calcAvg('hour') + "\n" + calcAvg("morning") + "\n" + calcAvg("afternoon") + "\n" + calcAvg("day")
 
 def menu():
     choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Exit\n\n")
@@ -74,8 +116,11 @@ def scan(stat_mode):
             mod_sro = raw_sro.replace('R', 'S').replace('P', 'R').replace('Y', 'O').replace('	','')
             if mod_sro not in sro_list and stat_mode == "stat_mode_ON":
                 sro_list.append(mod_sro)
+                sro_timestamp = datetime.datetime.now()
+                sro_dict[sro_timestamp.strftime("%X")] = mod_sro
                 pyperclip.copy(mod_sro)
                 print(f"\n{pyperclip.paste()} copied to clipboard")
+                print(sro_dict)
             elif mod_sro in sro_list and stat_mode == "stat_mode_DELETE":
                 sro_list.remove(mod_sro)
                 print(mod_sro + " deleted from daily list\n")
