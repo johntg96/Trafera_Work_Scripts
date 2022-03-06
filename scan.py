@@ -29,16 +29,19 @@ sro_dict = {}
 
 def help():
     return '''
-    \nCommands:
-    menu     -> Open Menu
-    stats    -> Display statistics
-    list     -> Displays scanned SRO's with corresponding timestamps
-    save     -> Exports daily scanned SRO's to .csv file
-    mode     -> Change scan mode
-    turn on  -> Turns on statistic tracking
-    turn off -> Turns off statistic tracking
-    delete   -> Turns on DELETE mode to remove scanned SRO's
-    exit     -> Exits"
+----------------------------Help-----------------------------------
+-------------------------------------------------------------------
+Commands:
+menu     -> Open Menu
+stats    -> Display statistics
+list     -> Displays scanned SRO's with corresponding timestamps
+save     -> Exports daily scanned SRO's to .csv file
+mode     -> Change scan mode
+turn on  -> Turns on statistic tracking
+turn off -> Turns off statistic tracking
+delete   -> Turns on DELETE mode to remove scanned SRO's
+exit     -> Exits"
+-------------------------------------------------------------------
     '''
 
 def split(word):
@@ -107,7 +110,18 @@ def dailyStats():
         return "No SRO data available"
 
 def menu():
-    choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Export Scans\n6: Help\n7: Exit\n\n")
+    choice = input('''
+----------Menu------------
+--------------------------
+1: Scan SRO (with stats)
+2: No Statistic SRO Scan
+3: Delete SRO from List
+4: Daily Statistics
+5: Export Scans
+6: Help
+7: Exit
+--------------------------
+choice: ''')
 
     if choice == "1":
         scan("stat_mode_ON")
