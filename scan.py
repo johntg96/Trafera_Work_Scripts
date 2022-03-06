@@ -21,6 +21,9 @@ print('''
 
 sro_dict = {}
 
+def help():
+    return "\nCommands:\n'menu' -> Open Menu\n'stats' -> Display statistics\n'mode' -> Change scan mode'\n'turn on' -> Turns on statistic tracking\n'turn off -> turns off statistic tracking\n'list' -> Displays scanned SRO's with corresponding timestamps\n'exit' -> Exits"
+
 def split(word):
     return [char for char in word]
 
@@ -74,7 +77,7 @@ def dailyStats():
         return "No SRO data available"
 
 def menu():
-    choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Exit\n\n")
+    choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Help\n6: Exit\n\n")
 
     if choice == "1":
         scan("stat_mode_ON")
@@ -86,6 +89,9 @@ def menu():
         print(dailyStats())
         menu()
     elif choice == "5":
+        print(help())
+        menu()
+    elif choice == "6":
         sys.exit(0)
     else:
         print("Invalid choice")
@@ -159,6 +165,8 @@ def scan(stat_mode):
         stat_mode = "stat_mode_OFF"
     elif raw_sro == "LIST":
         print(sro_dict)
+    elif raw_sro == "HELP":
+        print(help())
     elif raw_sro == "EXIT":
         sys.exit(0)
     else:
