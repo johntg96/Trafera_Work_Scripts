@@ -37,8 +37,8 @@ stats    -> Display statistics
 list     -> Displays scanned SRO's with corresponding timestamps
 save     -> Exports daily scanned SRO's to .csv file
 mode     -> Change scan mode
-turn on  -> Turns on statistic tracking
-turn off -> Turns off statistic tracking
+turn on  -> Turns ON statistic tracking
+turn off -> Turns OFF statistic tracking
 delete   -> Turns on DELETE mode to remove scanned SRO's
 exit     -> Exits"
 -------------------------------------------------------------------
