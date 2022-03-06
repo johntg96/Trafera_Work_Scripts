@@ -28,7 +28,18 @@ print('''
 sro_dict = {}
 
 def help():
-    return "\nCommands:\n'menu' -> Open Menu\n'stats' -> Display statistics\n'mode' -> Change scan mode'\n'turn on' -> Turns on statistic tracking\n'turn off' -> turns off statistic tracking\n'list' -> Displays scanned SRO's with corresponding timestamps\n'exit' -> Exits"
+    return '''
+    \nCommands:
+    menu     -> Open Menu
+    stats    -> Display statistics
+    list     -> Displays scanned SRO's with corresponding timestamps
+    save     -> Exports daily scanned SRO's to .csv file
+    mode     -> Change scan mode
+    turn on  -> Turns on statistic tracking
+    turn off -> Turns off statistic tracking
+    delete   -> Turns on DELETE mode to remove scanned SRO's
+    exit     -> Exits"
+    '''
 
 def split(word):
     return [char for char in word]
