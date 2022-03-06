@@ -161,7 +161,7 @@ def statMode(stat_mode):
     return stat_mode
 
 def scan(stat_mode):
-    raw_sro = input("\nScan SRO (" + stat_mode + "):\n\n").upper()
+    raw_sro = input(f"\nScan SRO {stat_mode}:\n\n").upper()
     raw_sro_list = split(raw_sro)
 
     #check if SRO has been scanned in using Colemak-Mod DH layout or not
