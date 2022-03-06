@@ -69,7 +69,10 @@ def calcAvg(timeframe):
             return "Full day not yet worked"
 
 def dailyStats():
-    return "Total # of unique SRO's scanned: " + str(len(sro_dict.values())) + "\n" + calcAvg('hour') + "\n" + calcAvg("morning") + "\n" + calcAvg("afternoon") + "\n" + calcAvg("day")
+    if len(sro_dict) != 0:
+        return "Total # of unique SRO's scanned: " + str(len(sro_dict.values())) + "\n" + calcAvg('hour') + "\n" + calcAvg("morning") + "\n" + calcAvg("afternoon") + "\n" + calcAvg("day")
+    else:
+        return "No SRO data available"
 
 def menu():
     choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Exit\n\n")
