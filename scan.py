@@ -2,6 +2,7 @@ import sys
 import re
 import datetime
 import pyperclip
+import csv
 
 # TO-DO:
 # Create function to export sro_dict to local file -> Possibly also upload this file online, or append daily data to a running spreadsheet stored remotely.
@@ -27,7 +28,7 @@ print('''
 sro_dict = {}
 
 def help():
-    return "\nCommands:\n'menu' -> Open Menu\n'stats' -> Display statistics\n'mode' -> Change scan mode'\n'turn on' -> Turns on statistic tracking\n'turn off -> turns off statistic tracking\n'list' -> Displays scanned SRO's with corresponding timestamps\n'exit' -> Exits"
+    return "\nCommands:\n'menu' -> Open Menu\n'stats' -> Display statistics\n'mode' -> Change scan mode'\n'turn on' -> Turns on statistic tracking\n'turn off' -> turns off statistic tracking\n'list' -> Displays scanned SRO's with corresponding timestamps\n'exit' -> Exits"
 
 def split(word):
     return [char for char in word]
@@ -71,7 +72,20 @@ def calcAvg(timeframe):
     elif timeframe == "day":
         if '07' in hours and '03' in hours:
             day_avg = len(sro_dict) / 7
-            return "Day average " + str(day_avg)
+            export_choice = False
+
+            while export_choice == False:
+                choice = input("Full workday hours worked. Would you like to export today's daily scans? y/n:\n")
+
+                if choice == "y":
+                    print(exportDailyScans())
+                    export_choice == True
+                    return "Day average " + str(day_avg)
+                elif export_choice == "n":
+                    export_choice == True
+                    return "Day average " + str(day_avg)
+                else:
+                    print("Invalid choice. Try again.\n")
         else:
             return "Full day not yet worked"
 
@@ -82,7 +96,7 @@ def dailyStats():
         return "No SRO data available"
 
 def menu():
-    choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Help\n6: Exit\n\n")
+    choice = input("\n1: Scan SRO (with stats)\n2: No Statistic SRO Scan\n3: Delete SRO from List\n4: Daily Statistics\n5: Export Scans\n6: Help\n7: Exit\n\n")
 
     if choice == "1":
         scan("stat_mode_ON")
@@ -94,13 +108,26 @@ def menu():
         print(dailyStats())
         menu()
     elif choice == "5":
+        print(exportDailyScans())
+    elif choice == "6":
         print(help())
         menu()
-    elif choice == "6":
+    elif choice == "7":
         sys.exit(0)
     else:
         print("Invalid choice")
         menu()
+
+def exportDailyScans():
+    if len(sro_dict) != 0:
+        #Creates 'output.csv' file and writes sro_dict key/value pairs to it.
+        with open('daily_scans.csv', 'w+') as f:
+            w = csv.writer(f)
+            w.writerows(sro_dict.items())
+
+        return "Export complete. Saved 'daily_scans.csv'"
+    else:
+        return "Cannot export, no SRO's scanned with stat_mode_ON"
 
 def statMode(stat_mode):
     while True:
@@ -145,7 +172,7 @@ def scan(stat_mode):
         else:
             if raw_sro not in sro_dict.keys() and stat_mode == "stat_mode_ON":
                 sro_timestamp = datetime.datetime.now()
-                sro_dict[sro_timestamp.strftime("%X")] = raw_sro
+                sro_dict[raw_sro] = sro_timestamp.strftime("%X")
                 pyperclip.copy(raw_sro)
                 print(f"\n{pyperclip.paste()} copied to clipboard")
             elif raw_sro in sro_dict.keys() and stat_mode == "stat_mode_DELETE":
@@ -172,6 +199,8 @@ def scan(stat_mode):
         print(sro_dict)
     elif raw_sro == "HELP":
         print(help())
+    elif raw_sro == "SAVE":
+        print(exportDailyScans())
     elif raw_sro == "EXIT":
         sys.exit(0)
     else:
