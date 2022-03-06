@@ -42,7 +42,7 @@ def calcAvg(timeframe):
 
     if timeframe == "hour":
         hourly_avg = len(sro_dict) / len(hours)
-        return "Hours worked: " + str(len(hours)) + "\nHourly average: " + str(int(hourly_avg))
+        return "Hours worked: " + str(len(hours)) + "\nHourly average: " + str(hourly_avg)
 
     elif timeframe == "morning":
         if '07' in hours and '12' in hours:
@@ -53,7 +53,7 @@ def calcAvg(timeframe):
 
             morning_avg = len(sro_dict) / 4.5
             morning_total = len(morning_sros)
-            return "Morning average: " + str(int(morning_avg)) + " Morning total: " + str(morning_total)
+            return "Morning average: " + str(morning_avg) + " Morning total: " + str(morning_total)
         else:
             return "Morning hours not yet worked."
     elif timeframe == 'afternoon':
@@ -65,13 +65,13 @@ def calcAvg(timeframe):
 
             afternoon_avg = len(sro_dict) / 3
             afternoon_total = len(afternoon_sros)
-            return "Afternoon average: " + str(int(afternoon_avg)) + " Afternoon total: " + str(afternoon_total)
+            return "Afternoon average: " + str(afternoon_avg) + " Afternoon total: " + str(afternoon_total)
         else:
             return "Afternoon hours not yet worked."
     elif timeframe == "day":
         if '07' in hours and '03' in hours:
             day_avg = len(sro_dict) / 7
-            return "Day average " + str(int(day_avg))
+            return "Day average " + str(day_avg)
         else:
             return "Full day not yet worked"
 
