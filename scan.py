@@ -120,28 +120,45 @@ def menu():
 
 def exportDailyScans():
     if len(sro_dict) != 0:
-        #Creates 'output.csv' file and writes sro_dict key/value pairs to it.
-        with open('daily_scans.csv', 'w+') as f:
-            w = csv.writer(f)
-            w.writerows(sro_dict.items())
+        export_status = None
+        while True:
+            confirm = input("Would you like to export daily scans to .csv file? y/n:\n")
+            if confirm == "y":
+                #Creates 'output.csv' file and writes sro_dict key/value pairs to it.
+                with open('daily_scans.csv', 'w+') as f:
+                    w = csv.writer(f)
+                    w.writerows(sro_dict.items())
 
-        return "Export complete. Saved 'daily_scans.csv'"
+                export_status = "Export complete. Saved 'daily_scans.csv'\n"
+                break
+            elif confirm == "n":
+                export_status = "Export aborted.\n"
+                break
+            else:
+                print("Incorrect input. Try again.\n")
+                continue
+        return export_status
     else:
-        return "Cannot export, no SRO's scanned with stat_mode_ON"
+        return "Cannot export, no SRO's scanned with stat_mode_ON\n"
 
 def statMode(stat_mode):
     while True:
         print("Stat mode: " + stat_mode)
         switch_mode = input("1: stat_mode_ON\n2: stat_mode_OFF\n3: stat_mode_DELETE\n")
         if switch_mode == "1":
-            return "stat_mode_ON"
+            stat_mode = "stat_mode_ON"
+            break
         elif switch_mode == "2":
-            return "stat_mode_OFF"
+            stat_mode = "stat_mode_OFF"
+            break
         elif switch_mode == "3":
-            return "stat_mode_DELETE"
+            stat_mode = "stat_mode_DELETE"
+            break
         else:
             print("incorrect input")
             continue
+
+    return stat_mode
 
 def scan(stat_mode):
     raw_sro = input("\nScan SRO (" + stat_mode + "):\n\n").upper()
