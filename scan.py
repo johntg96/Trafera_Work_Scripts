@@ -3,6 +3,11 @@ import re
 import datetime
 import pyperclip
 
+# TO-DO:
+# Create function to export sro_dict to local file -> Possibly also upload this file online, or append daily data to a running spreadsheet stored remotely.
+# Create function to pull info from this spreadsheet to give longer average history (week, month, etc) and analyze trends.
+# Create function/modify function(s) to input (or grab somehow) simple repair data for each sro (Motherboard replacement? LCD? etc) to tie with data for increased transparency towards avg time needed to do certain repairs.
+
 print('''
            __________                                 
          .'----------`.                              
@@ -28,7 +33,7 @@ def split(word):
     return [char for char in word]
 
 def calcAvg(timeframe):
-    #appends each hour of the day to this list as they are worked.
+    #appends each hour of the day to this list as they are worked when this function is called.
     hours = []
 
     for hour in sro_dict.values():
