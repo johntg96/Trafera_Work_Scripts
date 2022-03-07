@@ -4,11 +4,6 @@ import datetime
 import pyperclip
 import csv
 
-# TO-DO:
-# Create function to export sro_dict to local file -> Possibly also upload this file online, or append daily data to a running spreadsheet stored remotely.
-# Create function to pull info from this spreadsheet to give longer average history (week, month, etc) and analyze trends.
-# Create function/modify function(s) to input (or grab somehow) simple repair data for each sro (Motherboard replacement? LCD? etc) to tie with data for increased transparency towards avg time needed to do certain repairs.
-
 print('''
            __________                                 
          .'----------`.                              
@@ -105,9 +100,9 @@ def calcAvg(timeframe):
 
 def dailyStats():
     if len(sro_dict) != 0:
-        return "Total # of unique SRO's scanned: " + str(len(sro_dict)) + "\n" + calcAvg('hour') + "\n" + calcAvg("morning") + "\n" + calcAvg("afternoon") + "\n" + calcAvg("day")
+        return "\nTotal # of unique SRO's scanned: " + str(len(sro_dict)) + "\n" + calcAvg('hour') + "\n" + calcAvg("morning") + "\n" + calcAvg("afternoon") + "\n" + calcAvg("day")
     else:
-        return "No SRO data available"
+        return "\nNo SRO data available"
 
 def menu():
     choice = input('''
@@ -131,11 +126,15 @@ choice: ''')
         scan("stat_mode_DELETE")
     elif choice == "4":
         print(dailyStats())
+        input("Press any key to continue...")
         menu()
     elif choice == "5":
         print(exportDailyScans())
+        input("Press any key to continue...")
+        menu()
     elif choice == "6":
         print(help())
+        input("Press any key to continue...")
         menu()
     elif choice == "7":
         sys.exit(0)
@@ -147,24 +146,27 @@ def exportDailyScans():
     if len(sro_dict) != 0:
         export_status = None
         while True:
-            confirm = input("Would you like to export daily scans to .csv file? y/n:\n")
+            confirm = input("\nWould you like to export daily scans to .csv file? y/n:\n")
             if confirm == "y":
-                #Creates 'output.csv' file and writes sro_dict key/value pairs to it.
-                with open('daily_scans.csv', 'w+') as f:
-                    w = csv.writer(f)
-                    w.writerows(sro_dict.items())
+                date = datetime.datetime.now()
+                filename = "scan_history_" + date.strftime("%m") + "_" + date.strftime("%d") + "_" + date.strftime("%y") + ".csv"
+                fields = ["SRO", "Timestamp"]
+                with open(filename, 'w+') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(fields)
+                    csvwriter.writerows(sro_dict.items())
 
-                export_status = "Export complete. Saved 'daily_scans.csv'\n"
+                export_status = f"\nExport complete. [Saved: {filename}]\n"
                 break
             elif confirm == "n":
-                export_status = "Export aborted.\n"
+                export_status = "\nExport aborted.\n"
                 break
             else:
-                print("Incorrect input. Try again.\n")
+                print("\nIncorrect input. Try again.\n")
                 continue
         return export_status
     else:
-        return "Cannot export, no SRO's scanned with stat_mode_ON\n"
+        return "\nCannot export, no SRO's scanned with stat_mode_ON\n"
 
 def statMode(stat_mode):
     while True:
@@ -229,6 +231,7 @@ def scan(stat_mode):
         menu()
     elif raw_sro == "STATS":
         print(dailyStats())
+        input("Press any key to continue...")
     elif raw_sro == "MODE":
         stat_mode = statMode(stat_mode)
     elif raw_sro == "DELETE":
@@ -239,10 +242,13 @@ def scan(stat_mode):
         stat_mode = "stat_mode_OFF"
     elif raw_sro == "LIST":
         print(sro_dict)
+        input("Press any key to continue...")
     elif raw_sro == "HELP":
         print(help())
-    elif raw_sro == "SAVE":
+        input("Press any key to continue...")
+    elif raw_sro == "SAVE" or raw_sro == "EXPORT":
         print(exportDailyScans())
+        input("Press any key to continue...")
     elif raw_sro == "EXIT":
         sys.exit(0)
     else:
