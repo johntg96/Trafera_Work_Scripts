@@ -8,4 +8,4 @@ Features:
 * Ability to add and remove history of scanned SRO's.
 * Statistics (Qty average for work shift time periods).
 * Different scan modes: enable/disable scanning history, scan to delete from history.
-* Export SRO's with timestamps to CSV file.
+* Export SRO's with timestamps to CSV file named with current date.
