@@ -8,5 +8,5 @@ Additional Features:
 * Ability to log scanned SRO's with timestamps.
 * Ability to add and remove history of logged SRO's.
 * Statistics (Qty average for work shift time periods).
-* Different scan modes: enable/disable logging, scan to delete from log.
+* Multiple scanning modes: enable/disable logging, scan to delete from log.
 * Export log to CSV file named with current date.
