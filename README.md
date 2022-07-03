@@ -2,7 +2,7 @@
 Simple and sweet python script to enhance my workflow.
 
 Main purpose:
-* sro_scan copies SRO to clipboard and fixes SRO's scanned when using colemak keyboard layout (ex. 'RPY#######' -> 'SRO#######').
+* sro_scan copies SRO####### to clipboard and fixes SRO's scanned when using colemak keyboard layout (ex. 'RPY#######' -> 'SRO#######').
 
 Additional Features:
 * Keeps track of SRO qty, timestamp
